@@ -1,0 +1,6 @@
+"# 修复内容总结"  
+"1. 移除了 main.dart 中每次启动删除数据库的代码"  
+"2. 改进了 NovelController 中的 _saveToHive 方法，添加了数据刷新操作"  
+"3. 增强了 saveChapter 方法，单独保存章节并确保刷新到磁盘"  
+"4. 改进了 _loadGeneratedChapters 方法，加载所有保存的章节数据"  
+"5. 修复了 deleteChapter 和 clearAllChapters 方法，确保在删除后刷新数据" 
