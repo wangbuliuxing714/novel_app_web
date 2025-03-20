@@ -3,7 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"assets/AssetManifest.bin": "c47233d7fb7a250d887c2e91ed3c9f8f",
+const RESOURCES = {"404.html": "ddd65d3998b2265569939c6efffc13a3",
+"assets/AssetManifest.bin": "c47233d7fb7a250d887c2e91ed3c9f8f",
 "assets/AssetManifest.bin.json": "9c2f234813ee0b26b096a6eeb868094b",
 "assets/AssetManifest.json": "6ecaf5fcf3764f3a7b491f354ca2060b",
 "assets/assets/images/wechat_pay.png.jpg": "d7e79fbda9bba9aa63a01c6279feb532",
@@ -27,13 +28,13 @@ const RESOURCES = {"assets/AssetManifest.bin": "c47233d7fb7a250d887c2e91ed3c9f8f
 "canvaskit/skwasm.worker.js": "89990e8c92bcb123999aa81f7e203b1c",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "flutter.js": "4b2350e14c6650ba82871f60906437ea",
-"flutter_bootstrap.js": "cb6362e665582f5380d06f392af582e3",
+"flutter_bootstrap.js": "2080a2440ed0ac05ec782c7b65fb6627",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "3adf1a4d0da7bc22a38a0cc6b662f844",
-"/": "3adf1a4d0da7bc22a38a0cc6b662f844",
+"index.html": "5adabc6da5b86b8ee4766bb30d7edc7c",
+"/": "5adabc6da5b86b8ee4766bb30d7edc7c",
 "main.dart.js": "32336fb1c295ad0aac6a7c06f6ffb5a8",
 "manifest.json": "6483819f51c85c785bb74b3f64cf7ae1",
 "version.json": "c6bbde0251a74e15586702358bb44c0f",
