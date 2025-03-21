@@ -1,19 +1,41 @@
 <!DOCTYPE html> 
 <html>  
 <head>  
-<base href="/novel_app_web/">  
-<meta charset="UTF-8">  
-<script src="flutter.js" defer></script>  
+  <base href="/novel_app_web/"> 
+  <meta charset="UTF-8">  
+  <title>AI小说生成器</title> 
+  <script>  
+    // 必要的Flutter配置  
+    window._flutter = window._flutter || {};  
+    window._flutter.buildConfig = { 
+      engineRevision: "latest",  
+      builds: [{  
+        renderer: "html",  
+        compileTarget: "dart2js"  
+      }],  
+      initializeEngine: true,  
+    };  
+  </script> 
+  <script src="flutter.js"></script>  
 </head>  
-<body>  
-<script>  
-window.addEventListener('load', function(ev) {  
-_flutter.loader.load({  
-serviceWorker: {  
-serviceWorkerVersion: '1',  
-}  
-});  
-});  
-</script>  
+<body> 
+  <div style="display:flex;justify-content:center;align-items:center;height:100vh;">  
+    <div style="width:60px;height:60px;border:8px solid #f3f3f3;border-radius:50%;border-top:8px solid #2196F3;animation:spin 1s linear infinite;"></div>  
+  </div> 
+  <style>  
+    @keyframes spin {  
+      0%% { transform: rotate(0deg); }  
+      100%% { transform: rotate(360deg); }  
+    }  
+  </style> 
+  <script> 
+    window.addEventListener('load', function() { 
+      _flutter.loader.load({  
+        serviceWorker: {  
+          serviceWorkerVersion: '1',  
+        }  
+      }); 
+    });  
+  </script>  
 </body>  
 </html> 
