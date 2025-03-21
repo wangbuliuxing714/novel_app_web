@@ -40,7 +40,7 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "3030932597";
+    const serviceWorkerVersion = "2729776454";
     
     // 动态设置base href，确保资源正确加载
     (function() {
@@ -81,10 +81,11 @@
       useColorEmoji: false
     };
     
-    // 网络状态监控
-    let isOnline = navigator.onLine;
+    // 网络状态监控 - 已禁用
+    let isOnline = true; // 始终保持在线状态
     
-    // 监听网络状态变化
+    // 禁用网络状态监听
+    /*
     window.addEventListener('online', function() {
       isOnline = true;
       console.log('网络已连接');
@@ -104,6 +105,7 @@
         document.body.prepend(netStatus);
       }
     });
+    */
     
     // 增强的fetch函数，带有重试机制和错误处理
     const originalFetch = window.fetch;
@@ -131,15 +133,31 @@
         delete init.headers['access-control-allow-origin'];
       }
       
-      // 对于CanvasKit资源，使用HTML渲染器时跳过请求
-      if (url.includes('canvaskit.wasm') || url.includes('canvaskit.js')) {
-        return Promise.resolve(new Response(JSON.stringify({
-          success: true,
-          message: 'HTML渲染器不需要CanvasKit'
-        }), {
-          status: 200,
-          headers: {'Content-Type': 'application/json'}
-        }));
+      // 对于CanvasKit资源，添加正确的MIME类型
+      if (url.includes('canvaskit.wasm')) {
+        // 提供正确的MIME类型响应而不是跳过
+        const wasmHeaders = new Headers({
+          'Content-Type': 'application/wasm',
+          'Cache-Control': 'max-age=86400'
+        });
+        
+        // 尝试使用fetch请求原始资源
+        return originalFetch(resource, {
+          ...init,
+          headers: wasmHeaders
+        }).catch(err => {
+          console.warn('无法加载CanvasKit WASM:', err);
+          // 如果失败，则切换到HTML渲染器
+          window.flutterWebRenderer = "html";
+          
+          return Promise.resolve(new Response(JSON.stringify({
+            success: false,
+            message: '无法加载CanvasKit，已切换到HTML渲染器'
+          }), {
+            status: 200,
+            headers: {'Content-Type': 'application/json'}
+          }));
+        });
       }
       
       // 设置超时时间
@@ -174,25 +192,12 @@
             clearTimeout(timeoutId);
             console.warn('Fetch错误:', error, '资源:', resource);
             
-            // 检查是否为网络连接问题
-            if (!isOnline) {
-              console.warn('网络连接已断开');
-              // 显示网络错误提示
-              if (!document.getElementById('network-status')) {
-                const netStatus = document.createElement('div');
-                netStatus.id = 'network-status';
-                netStatus.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#f44336;color:white;text-align:center;padding:8px;z-index:9999;';
-                netStatus.textContent = '网络连接已断开，请检查您的网络设置';
-                document.body.prepend(netStatus);
-              }
-            }
-            
             // 对于特定API请求的错误处理
             if (url.includes('/api/') || url.includes('felo.me') || url.includes('felo.cc')) {
               // 返回一个友好的错误响应，而不是让整个应用崩溃
               resolve(new Response(JSON.stringify({
                 success: false, 
-                message: '网络请求失败，请检查网络连接',
+                message: '网络请求失败',
                 error: error.message
               }), {
                 status: 200,
@@ -240,17 +245,9 @@
       100% { transform: rotate(360deg); }
     }
     
+    /* 禁用网络状态提示样式 */
     #network-status {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: #f44336;
-      color: white;
-      text-align: center;
-      padding: 8px;
-      z-index: 9999;
+      display: none !important; /* 强制隐藏网络状态提示 */
     }
   </style>
 </head>
