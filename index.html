@@ -14,7 +14,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="/novel_app_web/">
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -40,7 +40,7 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "554837270";
+    const serviceWorkerVersion = "2454738035";
     
     // 强制使用HTML渲染器
     window.flutterWebRenderer = "html";
@@ -258,26 +258,7 @@
         return true;
       };
       
-      // 获取正确的基础路径
-      function getBasePath() {
-        // 从base标签获取路径，如果没有则使用/
-        const baseElem = document.querySelector('base');
-        let basePath = baseElem ? baseElem.getAttribute('href') : '/';
-        
-        // 确保路径以/结尾
-        if (!basePath.endsWith('/')) {
-          basePath += '/';
-        }
-        
-        // 移除开头的/以便与相对路径正确拼接
-        if (basePath.startsWith('/')) {
-          basePath = basePath.substring(1);
-        }
-        
-        return basePath;
-      }
-      
-      // 增强的main.dart.js加载逻辑
+      // 直接加载main.dart.js，不使用路径计算
       function loadMainDartJs(retryCount = 0) {
         if (retryCount > 3) {
           console.error('多次尝试加载main.dart.js失败');
@@ -287,8 +268,7 @@
         }
         
         var scriptTag = document.createElement('script');
-        const basePath = getBasePath();
-        scriptTag.src = `${basePath}main.dart.js` + (retryCount > 0 ? `?retry=${retryCount}` : '');
+        scriptTag.src = 'main.dart.js' + (retryCount > 0 ? `?retry=${retryCount}` : '');
         scriptTag.type = 'application/javascript';
         
         scriptTag.onerror = function(error) {
